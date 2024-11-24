@@ -1,26 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { ThemeProvider } from '@mui/material';
+import AnimatedLayout from './components/Layout/AnimatedLayout';
+import Dashboard from './pages/Dashboard';
+import Products from './pages/Products';
+import Categories from './pages/Categories';
+import Orders from './pages/Orders';
+import Sync from './pages/Sync';
+import PlatformSettings from './pages/PlatformSettings';
+import butcherTheme from './theme/butcherTheme';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={butcherTheme}>
+      <Router>
+        <AnimatedLayout>
+          <Routes>
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/categories" element={<Categories />} />
+            <Route path="/orders" element={<Orders />} />
+            <Route path="/sync" element={<Sync />} />
+            <Route path="/platform-settings/:platformId" element={<PlatformSettings />} />
+          </Routes>
+        </AnimatedLayout>
+      </Router>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
